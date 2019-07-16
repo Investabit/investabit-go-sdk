@@ -1,0 +1,460 @@
+---
+swagger: "2.0"
+info:
+  description: "The Investabit API allows for access to all of the public facing services\
+    \ provided, including market data and forecasts.\n\n## General Overview\n\n1.\
+    \ All API methods will be built to adhere to RESTful best practices as closely\
+    \ as possible. As such, all API calls will be made via the standard HTTP protocol\
+    \ using the GET/POST/PUT/DELETE request types.\n\n2. Every request returns the\
+    \ status as a JSON response with the following\n  - success, true if it was successful\n\
+    \  - code, the http status code (also in the response header)\n\n        200 if\
+    \ response is successful\n\n        400 if bad request\n\n        401 if authorization\
+    \ JWT is wrong or limit exceeded\n\n        404 wrong route\n\n        500 for\
+    \ any internal errors\n\n- status, the status of the request, default **success**\n\
+    \n- errors, an array of any relevant error details\n\n3. For any requests that\
+    \ are not successful an error message is specified and returned as an array for\
+    \ the **errors** key in the JSON response.\n\n4. All authentication uses JSON\
+    \ Web Tokens (JWT), which is set as the **Authorization** entry in the header,\
+    \ see the following for more details.\n    * http://jwt.io\n    * https://scotch.io/tutorials/the-anatomy-of-a-json-web-token"
+  version: ""
+  title: "Investabit API"
+host: "api.investabit.com"
+basePath: "/"
+tags:
+- name: "Public"
+schemes:
+- "https"
+paths:
+  /v1/public/symbols:
+    get:
+      tags:
+      - "Public"
+      summary: "Symbols"
+      description: ""
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "OK"
+          examples:
+            application/json:
+              success: true
+              code: 200
+              status: "success"
+              data:
+                symbols:
+                - symbol: "btc"
+                  name: "Bitcoin"
+                - symbol: "eth"
+                  name: "Ethereum"
+                - symbol: "ltc"
+                  name: "Litecoin"
+                - symbol: "eos"
+                  name: "EOS"
+          headers: {}
+          schema:
+            type: "object"
+            required:
+            - "code"
+            - "data"
+            - "status"
+            - "success"
+            properties:
+              success:
+                type: "boolean"
+              code:
+                type: "integer"
+              status:
+                type: "string"
+              data:
+                $ref: "#/definitions/Public Symbols Response_data"
+              errors:
+                type: "array"
+                items: {}
+            title: "Public Symbols Response"
+  /v1/public/current/{symbol}:
+    get:
+      tags:
+      - "Public"
+      summary: "Current"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: "symbol"
+        in: "path"
+        description: "The cryptocurrency symbol, default is btc."
+        required: false
+        type: "string"
+        x-example: "btc"
+        x-exportParamName: "Symbol"
+      responses:
+        200:
+          description: "OK"
+          examples:
+            application/json:
+              success: true
+              code: 200
+              status: "success"
+              data:
+                current:
+                  name: "Bitcoin"
+                  price: 6621.12
+                  change_usd: -320.05
+                  change_pct: -27.23
+          headers: {}
+          schema:
+            type: "object"
+            required:
+            - "code"
+            - "data"
+            - "status"
+            - "success"
+            properties:
+              success:
+                type: "boolean"
+              code:
+                type: "integer"
+              status:
+                type: "string"
+              data:
+                $ref: "#/definitions/Public Current Response_data"
+              errors:
+                type: "array"
+                items: {}
+            title: "Public Current Response"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              success: false
+              code: 400
+              status: "invalid_symbol"
+              errors:
+              - "Invalid symbol, cryptocurrency not found."
+          headers: {}
+          schema:
+            type: "object"
+            required:
+            - "code"
+            - "status"
+            - "success"
+            properties:
+              success:
+                type: "boolean"
+              code:
+                type: "integer"
+              status:
+                type: "string"
+              errors:
+                type: "array"
+                items: {}
+            title: "Default Response"
+  /v1/public/price-history/{symbol}:
+    get:
+      tags:
+      - "Public"
+      summary: "Price History"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: "symbol"
+        in: "path"
+        description: "The cryptocurrency symbol, default is btc."
+        required: false
+        type: "string"
+        x-example: "btc"
+        x-exportParamName: "Symbol"
+      responses:
+        200:
+          description: "OK"
+          examples: {}
+          headers: {}
+          schema:
+            type: "object"
+            required:
+            - "code"
+            - "data"
+            - "status"
+            - "success"
+            properties:
+              success:
+                type: "boolean"
+              code:
+                type: "integer"
+              status:
+                type: "string"
+              data:
+                $ref: "#/definitions/Public Price Response_data"
+              errors:
+                type: "array"
+                items: {}
+            title: "Public Price Response"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              success: false
+              code: 400
+              status: "invalid_symbol"
+              errors:
+              - "Invalid symbol, cryptocurrency not found."
+          headers: {}
+          schema:
+            type: "object"
+            required:
+            - "code"
+            - "status"
+            - "success"
+            properties:
+              success:
+                type: "boolean"
+              code:
+                type: "integer"
+              status:
+                type: "string"
+              errors:
+                type: "array"
+                items: {}
+            title: "Default Response"
+  /v1/public/trend/{symbol}:
+    get:
+      tags:
+      - "Public"
+      summary: "Trend"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: "symbol"
+        in: "path"
+        description: "The cryptocurrency symbol, default is btc."
+        required: false
+        type: "string"
+        x-example: "btc"
+        x-exportParamName: "Symbol"
+      responses:
+        200:
+          description: "OK"
+          examples: {}
+          headers: {}
+          schema:
+            type: "object"
+            required:
+            - "code"
+            - "data"
+            - "status"
+            - "success"
+            properties:
+              success:
+                type: "boolean"
+              code:
+                type: "integer"
+              status:
+                type: "string"
+              data:
+                $ref: "#/definitions/Public Trend Response_data"
+              errors:
+                type: "array"
+                items: {}
+            title: "Public Trend Response"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              success: false
+              code: 400
+              status: "invalid_symbol"
+              errors:
+              - "Invalid symbol, cryptocurrency not found."
+          headers: {}
+          schema:
+            type: "object"
+            required:
+            - "code"
+            - "status"
+            - "success"
+            properties:
+              success:
+                type: "boolean"
+              code:
+                type: "integer"
+              status:
+                type: "string"
+              errors:
+                type: "array"
+                items: {}
+            title: "Default Response"
+securityDefinitions: {}
+definitions:
+  Symbols Route: {}
+  Current Route: {}
+  Price History Route: {}
+  Trend Route: {}
+  Public Symbols Response_data_symbols:
+    required:
+    - "name"
+    - "symbol"
+    properties:
+      name:
+        type: "string"
+      symbol:
+        type: "string"
+  Public Symbols Response_data:
+    required:
+    - "symbols"
+    properties:
+      symbols:
+        type: "array"
+        items:
+          $ref: "#/definitions/Public Symbols Response_data_symbols"
+  Public Symbols Response:
+    required:
+    - "code"
+    - "data"
+    - "status"
+    - "success"
+    properties:
+      success:
+        type: "boolean"
+      code:
+        type: "integer"
+      status:
+        type: "string"
+      data:
+        $ref: "#/definitions/Public Symbols Response_data"
+      errors:
+        type: "array"
+        items: {}
+  Public Current Response_data:
+    required:
+    - "change_pct"
+    - "change_usd"
+    - "name"
+    - "price"
+    properties:
+      name:
+        type: "string"
+      price:
+        type: "number"
+      change_usd:
+        type: "number"
+      change_pct:
+        type: "number"
+  Public Current Response:
+    required:
+    - "code"
+    - "data"
+    - "status"
+    - "success"
+    properties:
+      success:
+        type: "boolean"
+      code:
+        type: "integer"
+      status:
+        type: "string"
+      data:
+        $ref: "#/definitions/Public Current Response_data"
+      errors:
+        type: "array"
+        items: {}
+  Default Response:
+    required:
+    - "code"
+    - "status"
+    - "success"
+    properties:
+      success:
+        type: "boolean"
+      code:
+        type: "integer"
+      status:
+        type: "string"
+      errors:
+        type: "array"
+        items: {}
+  Public Price Response_data_history:
+    required:
+    - "price"
+    - "time"
+    properties:
+      time:
+        type: "number"
+      price:
+        type: "number"
+  Public Price Response_data:
+    required:
+    - "history"
+    - "name"
+    properties:
+      name:
+        type: "string"
+      history:
+        type: "array"
+        items:
+          $ref: "#/definitions/Public Price Response_data_history"
+  Public Price Response:
+    required:
+    - "code"
+    - "data"
+    - "status"
+    - "success"
+    properties:
+      success:
+        type: "boolean"
+      code:
+        type: "integer"
+      status:
+        type: "string"
+      data:
+        $ref: "#/definitions/Public Price Response_data"
+      errors:
+        type: "array"
+        items: {}
+  Public Trend Response_data_trend:
+    required:
+    - "change_pct"
+    - "change_usd"
+    - "confidence"
+    - "interval"
+    - "weighted_price"
+    properties:
+      interval:
+        type: "string"
+      weighted_price:
+        type: "number"
+      change_usd:
+        type: "number"
+      change_pct:
+        type: "number"
+      confidence:
+        type: "number"
+  Public Trend Response_data:
+    required:
+    - "trend"
+    properties:
+      trend:
+        type: "array"
+        items:
+          $ref: "#/definitions/Public Trend Response_data_trend"
+  Public Trend Response:
+    required:
+    - "code"
+    - "data"
+    - "status"
+    - "success"
+    properties:
+      success:
+        type: "boolean"
+      code:
+        type: "integer"
+      status:
+        type: "string"
+      data:
+        $ref: "#/definitions/Public Trend Response_data"
+      errors:
+        type: "array"
+        items: {}
