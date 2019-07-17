@@ -17,7 +17,7 @@ info:
     \ Web Tokens (JWT), which is set as the **Authorization** entry in the header,\
     \ see the following for more details.\n    * http://jwt.io\n    * https://scotch.io/tutorials/the-anatomy-of-a-json-web-token"
   version: ""
-  title: "Investabit API"
+  title: "Investabit"
 host: "api.investabit.com"
 basePath: "/"
 tags:
