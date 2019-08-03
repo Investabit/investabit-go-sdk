@@ -9,7 +9,8 @@
 
 package swagger
 
-type PublicPriceResponseDataHistory struct {
-	Time float32 `json:"time"`
-	Price float32 `json:"price"`
+type PublicPriceChangeResponseDataPriceChange struct {
+	Interval string `json:"interval"`
+	ChangeUsd float32 `json:"change_usd"`
+	ChangePct float32 `json:"change_pct"`
 }

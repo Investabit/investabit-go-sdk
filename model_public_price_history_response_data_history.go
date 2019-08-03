@@ -9,10 +9,7 @@
 
 package swagger
 
-type PublicPriceResponse struct {
-	Success bool `json:"success"`
-	Code int32 `json:"code"`
-	Status string `json:"status"`
-	Data *PublicPriceResponseData `json:"data"`
-	Errors []interface{} `json:"errors,omitempty"`
+type PublicPriceHistoryResponseDataHistory struct {
+	Time float32 `json:"time"`
+	Price float32 `json:"price"`
 }

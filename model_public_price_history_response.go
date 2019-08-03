@@ -9,6 +9,10 @@
 
 package swagger
 
-type PublicCurrentResponseData struct {
-	Current []PublicCurrentResponseDataCurrent `json:"current"`
+type PublicPriceHistoryResponse struct {
+	Success bool `json:"success"`
+	Code int32 `json:"code"`
+	Status string `json:"status"`
+	Data *PublicPriceHistoryResponseData `json:"data"`
+	Errors []interface{} `json:"errors,omitempty"`
 }

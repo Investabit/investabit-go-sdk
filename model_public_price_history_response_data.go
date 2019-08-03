@@ -9,6 +9,6 @@
 
 package swagger
 
-type PublicCurrentResponseData struct {
-	Current []PublicCurrentResponseDataCurrent `json:"current"`
+type PublicPriceHistoryResponseData struct {
+	PriceHistory []PublicPriceHistoryResponseDataPriceHistory `json:"price_history"`
 }

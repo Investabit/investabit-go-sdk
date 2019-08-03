@@ -22,7 +22,8 @@ All URIs are relative to *https://api.investabit.com*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *PublicApi* | [**V1PublicCurrentSymbolGet**](docs/PublicApi.md#v1publiccurrentsymbolget) | **Get** /v1/public/current/{symbol} | Current
-*PublicApi* | [**V1PublicPriceHistorySymbolGet**](docs/PublicApi.md#v1publicpricehistorysymbolget) | **Get** /v1/public/price-history/{symbol} | Price History
+*PublicApi* | [**V1PublicPriceChangeSymbolGet**](docs/PublicApi.md#v1publicpricechangesymbolget) | **Get** /v1/public/price-change/{symbol} | Price Change
+*PublicApi* | [**V1PublicPriceHistorySymbolPeriodIntervalGet**](docs/PublicApi.md#v1publicpricehistorysymbolperiodintervalget) | **Get** /v1/public/price-history/{symbol}/{period}/{interval} | Price History
 *PublicApi* | [**V1PublicSymbolsGet**](docs/PublicApi.md#v1publicsymbolsget) | **Get** /v1/public/symbols | Symbols
 *PublicApi* | [**V1PublicTrendSymbolGet**](docs/PublicApi.md#v1publictrendsymbolget) | **Get** /v1/public/trend/{symbol} | Trend
 
@@ -31,12 +32,18 @@ Class | Method | HTTP request | Description
 
  - [CurrentRoute](docs/CurrentRoute.md)
  - [DefaultResponse](docs/DefaultResponse.md)
+ - [PriceChangeRoute](docs/PriceChangeRoute.md)
  - [PriceHistoryRoute](docs/PriceHistoryRoute.md)
  - [PublicCurrentResponse](docs/PublicCurrentResponse.md)
  - [PublicCurrentResponseData](docs/PublicCurrentResponseData.md)
- - [PublicPriceResponse](docs/PublicPriceResponse.md)
- - [PublicPriceResponseData](docs/PublicPriceResponseData.md)
- - [PublicPriceResponseDataHistory](docs/PublicPriceResponseDataHistory.md)
+ - [PublicCurrentResponseDataCurrent](docs/PublicCurrentResponseDataCurrent.md)
+ - [PublicPriceChangeResponse](docs/PublicPriceChangeResponse.md)
+ - [PublicPriceChangeResponseData](docs/PublicPriceChangeResponseData.md)
+ - [PublicPriceChangeResponseDataPriceChange](docs/PublicPriceChangeResponseDataPriceChange.md)
+ - [PublicPriceHistoryResponse](docs/PublicPriceHistoryResponse.md)
+ - [PublicPriceHistoryResponseData](docs/PublicPriceHistoryResponseData.md)
+ - [PublicPriceHistoryResponseDataHistory](docs/PublicPriceHistoryResponseDataHistory.md)
+ - [PublicPriceHistoryResponseDataPriceHistory](docs/PublicPriceHistoryResponseDataPriceHistory.md)
  - [PublicSymbolsResponse](docs/PublicSymbolsResponse.md)
  - [PublicSymbolsResponseData](docs/PublicSymbolsResponseData.md)
  - [PublicSymbolsResponseDataSymbols](docs/PublicSymbolsResponseDataSymbols.md)

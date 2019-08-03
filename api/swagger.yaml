@@ -84,8 +84,8 @@ paths:
       parameters:
       - name: "symbol"
         in: "path"
-        description: "The cryptocurrency symbol, default is btc."
-        required: false
+        description: "The cryptocurrency symbol, provide `all` to get every symbol."
+        required: true
         type: "string"
         x-example: "btc"
         x-exportParamName: "Symbol"
@@ -99,10 +99,16 @@ paths:
               status: "success"
               data:
                 current:
+                - symbol: "btc"
                   name: "Bitcoin"
                   price: 6621.12
                   change_usd: -320.05
-                  change_pct: -27.23
+                  change_pct: -5.23
+                - symbol: "eth"
+                  name: "Ethereum"
+                  price: 221.12
+                  change_usd: -30.05
+                  change_pct: -2.23
           headers: {}
           schema:
             type: "object"
@@ -151,7 +157,99 @@ paths:
                 type: "array"
                 items: {}
             title: "Default Response"
-  /v1/public/price-history/{symbol}:
+  /v1/public/price-change/{symbol}:
+    get:
+      tags:
+      - "Public"
+      summary: "Price Change"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: "symbol"
+        in: "path"
+        description: "The cryptocurrency symbol."
+        required: true
+        type: "string"
+        x-example: "btc"
+        x-exportParamName: "Symbol"
+      responses:
+        200:
+          description: "OK"
+          examples:
+            application/json:
+              success: true
+              code: 200
+              status: "success"
+              data:
+                price_change:
+                - interval: "01:00:00"
+                  change_pct: -0.15
+                  change_usd: -15
+                - interval: "04:00:00"
+                  change_pct: 0.61
+                  change_usd: 60.9
+                - interval: "24:00:00"
+                  change_pct: 4.07
+                  change_usd: 392
+                - interval: "72:00:00"
+                  change_pct: 5.02
+                  change_usd: 479.05
+                - interval: "168:00:00"
+                  change_pct: 4.06
+                  change_usd: 391.1
+                - interval: "720:00:00"
+                  change_pct: -3.17
+                  change_usd: -328
+          headers: {}
+          schema:
+            type: "object"
+            required:
+            - "code"
+            - "data"
+            - "status"
+            - "success"
+            properties:
+              success:
+                type: "boolean"
+              code:
+                type: "integer"
+              status:
+                type: "string"
+              data:
+                $ref: "#/definitions/Public Price Change Response_data"
+              errors:
+                type: "array"
+                items: {}
+            title: "Public Price Change Response"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              success: false
+              code: 400
+              status: "invalid_symbol"
+              errors:
+              - "Invalid symbol, cryptocurrency not found."
+          headers: {}
+          schema:
+            type: "object"
+            required:
+            - "code"
+            - "status"
+            - "success"
+            properties:
+              success:
+                type: "boolean"
+              code:
+                type: "integer"
+              status:
+                type: "string"
+              errors:
+                type: "array"
+                items: {}
+            title: "Default Response"
+  /v1/public/price-history/{symbol}/{period}/{interval}:
     get:
       tags:
       - "Public"
@@ -162,11 +260,25 @@ paths:
       parameters:
       - name: "symbol"
         in: "path"
-        description: "The cryptocurrency symbol, default is btc."
-        required: false
+        description: "The cryptocurrency symbol, provide `all` to get every symbol."
+        required: true
         type: "string"
         x-example: "btc"
         x-exportParamName: "Symbol"
+      - name: "period"
+        in: "path"
+        description: "The period to get data for, such as past 30 days."
+        required: true
+        type: "string"
+        x-example: "30d"
+        x-exportParamName: "Period"
+      - name: "interval"
+        in: "path"
+        description: "The bar interval, such as 1 day."
+        required: true
+        type: "string"
+        x-example: "1d"
+        x-exportParamName: "Interval"
       responses:
         200:
           description: "OK"
@@ -187,11 +299,11 @@ paths:
               status:
                 type: "string"
               data:
-                $ref: "#/definitions/Public Price Response_data"
+                $ref: "#/definitions/Public Price History Response_data"
               errors:
                 type: "array"
                 items: {}
-            title: "Public Price Response"
+            title: "Public Price History Response"
         400:
           description: "Bad Request"
           examples:
@@ -230,8 +342,8 @@ paths:
       parameters:
       - name: "symbol"
         in: "path"
-        description: "The cryptocurrency symbol, default is btc."
-        required: false
+        description: "The cryptocurrency symbol."
+        required: true
         type: "string"
         x-example: "btc"
         x-exportParamName: "Symbol"
@@ -291,6 +403,7 @@ securityDefinitions: {}
 definitions:
   Symbols Route: {}
   Current Route: {}
+  Price Change Route: {}
   Price History Route: {}
   Trend Route: {}
   Public Symbols Response_data_symbols:
@@ -328,13 +441,16 @@ definitions:
       errors:
         type: "array"
         items: {}
-  Public Current Response_data:
+  Public Current Response_data_current:
     required:
     - "change_pct"
     - "change_usd"
     - "name"
     - "price"
+    - "symbol"
     properties:
+      symbol:
+        type: "string"
       name:
         type: "string"
       price:
@@ -343,6 +459,14 @@ definitions:
         type: "number"
       change_pct:
         type: "number"
+  Public Current Response_data:
+    required:
+    - "current"
+    properties:
+      current:
+        type: "array"
+        items:
+          $ref: "#/definitions/Public Current Response_data_current"
   Public Current Response:
     required:
     - "code"
@@ -376,27 +500,27 @@ definitions:
       errors:
         type: "array"
         items: {}
-  Public Price Response_data_history:
+  Public Price Change Response_data_price_change:
     required:
-    - "price"
-    - "time"
+    - "change_pct"
+    - "change_usd"
+    - "interval"
     properties:
-      time:
-        type: "number"
-      price:
-        type: "number"
-  Public Price Response_data:
-    required:
-    - "history"
-    - "name"
-    properties:
-      name:
+      interval:
         type: "string"
-      history:
+      change_usd:
+        type: "number"
+      change_pct:
+        type: "number"
+  Public Price Change Response_data:
+    required:
+    - "price_change"
+    properties:
+      price_change:
         type: "array"
         items:
-          $ref: "#/definitions/Public Price Response_data_history"
-  Public Price Response:
+          $ref: "#/definitions/Public Price Change Response_data_price_change"
+  Public Price Change Response:
     required:
     - "code"
     - "data"
@@ -410,7 +534,56 @@ definitions:
       status:
         type: "string"
       data:
-        $ref: "#/definitions/Public Price Response_data"
+        $ref: "#/definitions/Public Price Change Response_data"
+      errors:
+        type: "array"
+        items: {}
+  Public Price History Response_data_history:
+    required:
+    - "price"
+    - "time"
+    properties:
+      time:
+        type: "number"
+      price:
+        type: "number"
+  Public Price History Response_data_price_history:
+    required:
+    - "history"
+    - "name"
+    - "symbol"
+    properties:
+      symbol:
+        type: "string"
+      name:
+        type: "string"
+      history:
+        type: "array"
+        items:
+          $ref: "#/definitions/Public Price History Response_data_history"
+  Public Price History Response_data:
+    required:
+    - "price_history"
+    properties:
+      price_history:
+        type: "array"
+        items:
+          $ref: "#/definitions/Public Price History Response_data_price_history"
+  Public Price History Response:
+    required:
+    - "code"
+    - "data"
+    - "status"
+    - "success"
+    properties:
+      success:
+        type: "boolean"
+      code:
+        type: "integer"
+      status:
+        type: "string"
+      data:
+        $ref: "#/definitions/Public Price History Response_data"
       errors:
         type: "array"
         items: {}
