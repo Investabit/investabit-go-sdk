@@ -10,6 +10,8 @@
 package swagger
 
 type PublicTrendResponseDataTrend struct {
+	TimeStart float32 `json:"time_start"`
+	TimeEnd float32 `json:"time_end"`
 	Interval string `json:"interval"`
 	WeightedPrice float32 `json:"weighted_price"`
 	ChangeUsd float32 `json:"change_usd"`

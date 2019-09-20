@@ -1,4 +1,4 @@
-# PublicCurrentResponseDataCurrent
+# PublicPriceCurrentResponseDataCurrent
 
 ## Properties
 Name | Type | Description | Notes

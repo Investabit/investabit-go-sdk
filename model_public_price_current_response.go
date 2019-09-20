@@ -9,10 +9,10 @@
 
 package swagger
 
-type PublicCurrentResponseDataCurrent struct {
-	Symbol string `json:"symbol"`
-	Name string `json:"name"`
-	Price float32 `json:"price"`
-	ChangeUsd float32 `json:"change_usd"`
-	ChangePct float32 `json:"change_pct"`
+type PublicPriceCurrentResponse struct {
+	Success bool `json:"success"`
+	Code int32 `json:"code"`
+	Status string `json:"status"`
+	Data *PublicPriceCurrentResponseData `json:"data"`
+	Errors []interface{} `json:"errors,omitempty"`
 }

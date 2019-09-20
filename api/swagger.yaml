@@ -73,11 +73,11 @@ paths:
                 type: "array"
                 items: {}
             title: "Public Symbols Response"
-  /v1/public/current/{symbol}:
+  /v1/public/price-current/{symbol}:
     get:
       tags:
       - "Public"
-      summary: "Current"
+      summary: "Price Current"
       description: ""
       produces:
       - "application/json"
@@ -125,11 +125,11 @@ paths:
               status:
                 type: "string"
               data:
-                $ref: "#/definitions/Public Current Response_data"
+                $ref: "#/definitions/Public Price Current Response_data"
               errors:
                 type: "array"
                 items: {}
-            title: "Public Current Response"
+            title: "Public Price Current Response"
         400:
           description: "Bad Request"
           examples:
@@ -350,7 +350,31 @@ paths:
       responses:
         200:
           description: "OK"
-          examples: {}
+          examples:
+            application/json:
+              success: true
+              code: 200
+              status: "success"
+              data:
+                trend:
+                - time_start: 1568822400
+                  time_end: 1568826000
+                  interval: "01:00:00"
+                  change_pct: -0.11
+                  change_usd: -11.34
+                  weighted_price: 10193.64
+                - time_start: 1568822400
+                  time_end: 1568836800
+                  interval: "04:00:00"
+                  change_pct: 0.17
+                  change_usd: 17.85
+                  weighted_price: 10222.83
+                - time_start: 1568808000
+                  time_end: 1568851200
+                  interval: "12:00:00"
+                  change_pct: -0.36
+                  change_usd: -36.19
+                  weighted_price: 10148.81
           headers: {}
           schema:
             type: "object"
@@ -402,7 +426,7 @@ paths:
 securityDefinitions: {}
 definitions:
   Symbols Route: {}
-  Current Route: {}
+  Price Current Route: {}
   Price Change Route: {}
   Price History Route: {}
   Trend Route: {}
@@ -441,7 +465,7 @@ definitions:
       errors:
         type: "array"
         items: {}
-  Public Current Response_data_current:
+  Public Price Current Response_data_current:
     required:
     - "change_pct"
     - "change_usd"
@@ -459,15 +483,15 @@ definitions:
         type: "number"
       change_pct:
         type: "number"
-  Public Current Response_data:
+  Public Price Current Response_data:
     required:
     - "current"
     properties:
       current:
         type: "array"
         items:
-          $ref: "#/definitions/Public Current Response_data_current"
-  Public Current Response:
+          $ref: "#/definitions/Public Price Current Response_data_current"
+  Public Price Current Response:
     required:
     - "code"
     - "data"
@@ -481,7 +505,7 @@ definitions:
       status:
         type: "string"
       data:
-        $ref: "#/definitions/Public Current Response_data"
+        $ref: "#/definitions/Public Price Current Response_data"
       errors:
         type: "array"
         items: {}
@@ -593,8 +617,14 @@ definitions:
     - "change_usd"
     - "confidence"
     - "interval"
+    - "time_end"
+    - "time_start"
     - "weighted_price"
     properties:
+      time_start:
+        type: "number"
+      time_end:
+        type: "number"
       interval:
         type: "string"
       weighted_price:

@@ -9,5 +9,10 @@
 
 package swagger
 
-type CurrentRoute struct {
+type PublicPriceCurrentResponseDataCurrent struct {
+	Symbol string `json:"symbol"`
+	Name string `json:"name"`
+	Price float32 `json:"price"`
+	ChangeUsd float32 `json:"change_usd"`
+	ChangePct float32 `json:"change_pct"`
 }

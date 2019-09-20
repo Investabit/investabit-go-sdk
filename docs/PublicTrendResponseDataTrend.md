@@ -3,6 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**TimeStart** | **float32** |  | [default to null]
+**TimeEnd** | **float32** |  | [default to null]
 **Interval** | **string** |  | [default to null]
 **WeightedPrice** | **float32** |  | [default to null]
 **ChangeUsd** | **float32** |  | [default to null]
