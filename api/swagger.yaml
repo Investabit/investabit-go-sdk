@@ -52,27 +52,11 @@ paths:
                   name: "Litecoin"
                 - symbol: "eos"
                   name: "EOS"
+                - symbol: "xrp"
+                  name: "Ripple"
           headers: {}
           schema:
-            type: "object"
-            required:
-            - "code"
-            - "data"
-            - "status"
-            - "success"
-            properties:
-              success:
-                type: "boolean"
-              code:
-                type: "integer"
-              status:
-                type: "string"
-              data:
-                $ref: "#/definitions/Public Symbols Response_data"
-              errors:
-                type: "array"
-                items: {}
-            title: "Public Symbols Response"
+            $ref: "#/definitions/Public Symbols Response"
   /v1/public/price-current/{symbol}:
     get:
       tags:
@@ -111,25 +95,7 @@ paths:
                   change_pct: -2.23
           headers: {}
           schema:
-            type: "object"
-            required:
-            - "code"
-            - "data"
-            - "status"
-            - "success"
-            properties:
-              success:
-                type: "boolean"
-              code:
-                type: "integer"
-              status:
-                type: "string"
-              data:
-                $ref: "#/definitions/Public Price Current Response_data"
-              errors:
-                type: "array"
-                items: {}
-            title: "Public Price Current Response"
+            $ref: "#/definitions/Public Price Current Response"
         400:
           description: "Bad Request"
           examples:
@@ -141,22 +107,7 @@ paths:
               - "Invalid symbol, cryptocurrency not found."
           headers: {}
           schema:
-            type: "object"
-            required:
-            - "code"
-            - "status"
-            - "success"
-            properties:
-              success:
-                type: "boolean"
-              code:
-                type: "integer"
-              status:
-                type: "string"
-              errors:
-                type: "array"
-                items: {}
-            title: "Default Response"
+            $ref: "#/definitions/Default Response"
   /v1/public/price-change/{symbol}:
     get:
       tags:
@@ -203,25 +154,7 @@ paths:
                   change_usd: -328
           headers: {}
           schema:
-            type: "object"
-            required:
-            - "code"
-            - "data"
-            - "status"
-            - "success"
-            properties:
-              success:
-                type: "boolean"
-              code:
-                type: "integer"
-              status:
-                type: "string"
-              data:
-                $ref: "#/definitions/Public Price Change Response_data"
-              errors:
-                type: "array"
-                items: {}
-            title: "Public Price Change Response"
+            $ref: "#/definitions/Public Price Change Response"
         400:
           description: "Bad Request"
           examples:
@@ -233,22 +166,7 @@ paths:
               - "Invalid symbol, cryptocurrency not found."
           headers: {}
           schema:
-            type: "object"
-            required:
-            - "code"
-            - "status"
-            - "success"
-            properties:
-              success:
-                type: "boolean"
-              code:
-                type: "integer"
-              status:
-                type: "string"
-              errors:
-                type: "array"
-                items: {}
-            title: "Default Response"
+            $ref: "#/definitions/Default Response"
   /v1/public/price-history/{symbol}/{period}/{interval}:
     get:
       tags:
@@ -285,25 +203,7 @@ paths:
           examples: {}
           headers: {}
           schema:
-            type: "object"
-            required:
-            - "code"
-            - "data"
-            - "status"
-            - "success"
-            properties:
-              success:
-                type: "boolean"
-              code:
-                type: "integer"
-              status:
-                type: "string"
-              data:
-                $ref: "#/definitions/Public Price History Response_data"
-              errors:
-                type: "array"
-                items: {}
-            title: "Public Price History Response"
+            $ref: "#/definitions/Public Price History Response"
         400:
           description: "Bad Request"
           examples:
@@ -315,22 +215,7 @@ paths:
               - "Invalid symbol, cryptocurrency not found."
           headers: {}
           schema:
-            type: "object"
-            required:
-            - "code"
-            - "status"
-            - "success"
-            properties:
-              success:
-                type: "boolean"
-              code:
-                type: "integer"
-              status:
-                type: "string"
-              errors:
-                type: "array"
-                items: {}
-            title: "Default Response"
+            $ref: "#/definitions/Default Response"
   /v1/public/trend/{symbol}:
     get:
       tags:
@@ -377,25 +262,7 @@ paths:
                   weighted_price: 10148.81
           headers: {}
           schema:
-            type: "object"
-            required:
-            - "code"
-            - "data"
-            - "status"
-            - "success"
-            properties:
-              success:
-                type: "boolean"
-              code:
-                type: "integer"
-              status:
-                type: "string"
-              data:
-                $ref: "#/definitions/Public Trend Response_data"
-              errors:
-                type: "array"
-                items: {}
-            title: "Public Trend Response"
+            $ref: "#/definitions/Public Trend Response"
         400:
           description: "Bad Request"
           examples:
@@ -407,22 +274,45 @@ paths:
               - "Invalid symbol, cryptocurrency not found."
           headers: {}
           schema:
-            type: "object"
-            required:
-            - "code"
-            - "status"
-            - "success"
-            properties:
-              success:
-                type: "boolean"
-              code:
-                type: "integer"
-              status:
-                type: "string"
+            $ref: "#/definitions/Default Response"
+  /v1/public/waiting-list:
+    post:
+      tags:
+      - "Public"
+      summary: "Waiting List"
+      description: "Subscribe a user to the waiting list, `name` is not required."
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Public Waiting List Request"
+        x-exportParamName: "Body"
+      responses:
+        200:
+          description: "OK"
+          examples:
+            application/json:
+              success: true
+              code: 200
+              status: "success"
+          headers: {}
+          schema:
+            $ref: "#/definitions/Default Response"
+        400:
+          description: "Bad Request"
+          examples:
+            application/json:
+              success: false
+              code: 400
+              status: "already_registered"
               errors:
-                type: "array"
-                items: {}
-            title: "Default Response"
+              - "Email already registered for waiting list!"
+          headers: {}
+          schema:
+            $ref: "#/definitions/Default Response"
 securityDefinitions: {}
 definitions:
   Symbols Route: {}
@@ -430,7 +320,9 @@ definitions:
   Price Change Route: {}
   Price History Route: {}
   Trend Route: {}
+  Waiting List Route: {}
   Public Symbols Response_data_symbols:
+    type: "object"
     required:
     - "name"
     - "symbol"
@@ -440,6 +332,7 @@ definitions:
       symbol:
         type: "string"
   Public Symbols Response_data:
+    type: "object"
     required:
     - "symbols"
     properties:
@@ -448,6 +341,7 @@ definitions:
         items:
           $ref: "#/definitions/Public Symbols Response_data_symbols"
   Public Symbols Response:
+    type: "object"
     required:
     - "code"
     - "data"
@@ -466,6 +360,7 @@ definitions:
         type: "array"
         items: {}
   Public Price Current Response_data_current:
+    type: "object"
     required:
     - "change_pct"
     - "change_usd"
@@ -484,6 +379,7 @@ definitions:
       change_pct:
         type: "number"
   Public Price Current Response_data:
+    type: "object"
     required:
     - "current"
     properties:
@@ -492,6 +388,7 @@ definitions:
         items:
           $ref: "#/definitions/Public Price Current Response_data_current"
   Public Price Current Response:
+    type: "object"
     required:
     - "code"
     - "data"
@@ -510,6 +407,7 @@ definitions:
         type: "array"
         items: {}
   Default Response:
+    type: "object"
     required:
     - "code"
     - "status"
@@ -525,6 +423,7 @@ definitions:
         type: "array"
         items: {}
   Public Price Change Response_data_price_change:
+    type: "object"
     required:
     - "change_pct"
     - "change_usd"
@@ -537,6 +436,7 @@ definitions:
       change_pct:
         type: "number"
   Public Price Change Response_data:
+    type: "object"
     required:
     - "price_change"
     properties:
@@ -545,6 +445,7 @@ definitions:
         items:
           $ref: "#/definitions/Public Price Change Response_data_price_change"
   Public Price Change Response:
+    type: "object"
     required:
     - "code"
     - "data"
@@ -563,6 +464,7 @@ definitions:
         type: "array"
         items: {}
   Public Price History Response_data_history:
+    type: "object"
     required:
     - "price"
     - "time"
@@ -572,6 +474,7 @@ definitions:
       price:
         type: "number"
   Public Price History Response_data_price_history:
+    type: "object"
     required:
     - "history"
     - "name"
@@ -586,6 +489,7 @@ definitions:
         items:
           $ref: "#/definitions/Public Price History Response_data_history"
   Public Price History Response_data:
+    type: "object"
     required:
     - "price_history"
     properties:
@@ -594,6 +498,7 @@ definitions:
         items:
           $ref: "#/definitions/Public Price History Response_data_price_history"
   Public Price History Response:
+    type: "object"
     required:
     - "code"
     - "data"
@@ -612,6 +517,7 @@ definitions:
         type: "array"
         items: {}
   Public Trend Response_data_trend:
+    type: "object"
     required:
     - "change_pct"
     - "change_usd"
@@ -636,6 +542,7 @@ definitions:
       confidence:
         type: "number"
   Public Trend Response_data:
+    type: "object"
     required:
     - "trend"
     properties:
@@ -644,6 +551,7 @@ definitions:
         items:
           $ref: "#/definitions/Public Trend Response_data_trend"
   Public Trend Response:
+    type: "object"
     required:
     - "code"
     - "data"
@@ -661,3 +569,26 @@ definitions:
       errors:
         type: "array"
         items: {}
+  Public Waiting List Request:
+    type: "object"
+    required:
+    - "email"
+    - "list_id"
+    - "service"
+    properties:
+      name:
+        type: "string"
+      email:
+        type: "string"
+        format: "email"
+        pattern: "^[^@]+@[^@]+$"
+      service:
+        type: "string"
+      list_id:
+        type: "string"
+    title: "Public Waiting List Request"
+    example:
+      name: "Jon"
+      email: "jon@investabit.com"
+      service: "cryptoweather"
+      list_id: "f5aDz"

@@ -26,6 +26,7 @@ Class | Method | HTTP request | Description
 *PublicApi* | [**V1PublicPriceHistorySymbolPeriodIntervalGet**](docs/PublicApi.md#v1publicpricehistorysymbolperiodintervalget) | **Get** /v1/public/price-history/{symbol}/{period}/{interval} | Price History
 *PublicApi* | [**V1PublicSymbolsGet**](docs/PublicApi.md#v1publicsymbolsget) | **Get** /v1/public/symbols | Symbols
 *PublicApi* | [**V1PublicTrendSymbolGet**](docs/PublicApi.md#v1publictrendsymbolget) | **Get** /v1/public/trend/{symbol} | Trend
+*PublicApi* | [**V1PublicWaitingListPost**](docs/PublicApi.md#v1publicwaitinglistpost) | **Post** /v1/public/waiting-list | Waiting List
 
 
 ## Documentation For Models
@@ -50,8 +51,10 @@ Class | Method | HTTP request | Description
  - [PublicTrendResponse](docs/PublicTrendResponse.md)
  - [PublicTrendResponseData](docs/PublicTrendResponseData.md)
  - [PublicTrendResponseDataTrend](docs/PublicTrendResponseDataTrend.md)
+ - [PublicWaitingListRequest](docs/PublicWaitingListRequest.md)
  - [SymbolsRoute](docs/SymbolsRoute.md)
  - [TrendRoute](docs/TrendRoute.md)
+ - [WaitingListRoute](docs/WaitingListRoute.md)
 
 
 ## Documentation For Authorization
