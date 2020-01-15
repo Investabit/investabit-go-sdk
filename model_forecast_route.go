@@ -9,5 +9,5 @@
 
 package swagger
 
-type TrendRoute struct {
+type ForecastRoute struct {
 }

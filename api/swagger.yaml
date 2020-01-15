@@ -1,27 +1,42 @@
 ---
 swagger: "2.0"
 info:
-  description: "The Investabit API allows for access to all of the public facing services\
-    \ provided, including market data and forecasts.\n\n## General Overview\n\n1.\
-    \ All API methods will be built to adhere to RESTful best practices as closely\
-    \ as possible. As such, all API calls will be made via the standard HTTP protocol\
-    \ using the GET/POST/PUT/DELETE request types.\n\n2. Every request returns the\
-    \ status as a JSON response with the following\n  - success, true if it was successful\n\
-    \  - code, the http status code (also in the response header)\n\n        200 if\
-    \ response is successful\n\n        400 if bad request\n\n        401 if authorization\
-    \ JWT is wrong or limit exceeded\n\n        404 wrong route\n\n        500 for\
-    \ any internal errors\n\n- status, the status of the request, default **success**\n\
-    \n- errors, an array of any relevant error details\n\n3. For any requests that\
-    \ are not successful an error message is specified and returned as an array for\
-    \ the **errors** key in the JSON response.\n\n4. All authentication uses JSON\
-    \ Web Tokens (JWT), which is set as the **Authorization** entry in the header,\
-    \ see the following for more details.\n    * http://jwt.io\n    * https://scotch.io/tutorials/the-anatomy-of-a-json-web-token"
+  description: "The CryptoWeather API allows for access to all of the cryptocurrency\
+    \ data and market forecast services provided. There are two primary categories\
+    \ of routes, `public` and `private`, where `public` routes are accessible to the\
+    \ general public and do not require API authentication, and `private` routes,\
+    \ which require API authentication.\n\n## General Overview\n\n1. All API methods\
+    \ adhere to RESTful best practices as closely as possible. As such, all API calls\
+    \ will be made via the standard HTTP protocol using the GET/POST/PUT/DELETE request\
+    \ types.\n\n2. Every request returns the status as a JSON response with the following:\n\
+    \    - success, true if it was successful\n    - code, the http status code (also\
+    \ in the response header)\n        - 200 if response is successful\n        -\
+    \ 400 if bad request\n        - 401 if authorization JWT is wrong or limit exceeded\n\
+    \        - 404 wrong route\n        - 500 for any internal errors\n    - status,\
+    \ the status of the request, default **success**\n    - errors, an array of any\
+    \ relevant error details\n\n3. For any requests that are not successful an error\
+    \ message is specified and returned as an array for the **errors** key in the\
+    \ JSON response.\n\n4. All authentication uses JSON Web Tokens (JWT), which is\
+    \ set as the **Authorization** entry in the header, see the following for more\
+    \ details.\n    - http://jwt.io\n    - https://scotch.io/tutorials/the-anatomy-of-a-json-web-token\n\
+    \n## Code Example\n\nThe following is a code example in Python, which demonstrates\
+    \ using the [Python Requests library](https://requests.readthedocs.io/en/master/)\
+    \ for both the `public` and `private` API routes.\n\n```\nimport requests\n\n\
+    HOST = \"https://api.cryptoweather.ai/v1\"\n\n# Your API key (JWT)\nAPI_KEY =\
+    \ \"<YOUR API KEY>\"\n\n# Example public request, no API key required.\nrequests.get(\"\
+    {}/public/symbols\".format(HOST)).json()\n\n# Get the current btc price using\
+    \ the public route\nrequests.get(\"{}/public/price-current/{}\".format(HOST, \"\
+    btc\")).json()\n\n\n# Example private request, API key required. Get the btc hourly\
+    \ forecasts\nheaders = {\"Authorization\": \"Bearer {}\".format(API_KEY)}\nrequests.get(\"\
+    {}/private/forecast/{}/{}\".format(HOST, \"btc\", \"1h\"),\n             headers=headers).json()\n\
+    ```"
   version: ""
-  title: "Investabit"
-host: "api.investabit.com"
+  title: "CryptoWeather"
+host: "api.cryptoweather.ai"
 basePath: "/"
 tags:
 - name: "Public"
+- name: "Private"
 schemes:
 - "https"
 paths:
@@ -35,7 +50,7 @@ paths:
       - "application/json"
       parameters: []
       responses:
-        200:
+        "200":
           description: "OK"
           examples:
             application/json:
@@ -74,7 +89,7 @@ paths:
         x-example: "btc"
         x-exportParamName: "Symbol"
       responses:
-        200:
+        "200":
           description: "OK"
           examples:
             application/json:
@@ -96,7 +111,7 @@ paths:
           headers: {}
           schema:
             $ref: "#/definitions/Public Price Current Response"
-        400:
+        "400":
           description: "Bad Request"
           examples:
             application/json:
@@ -125,7 +140,7 @@ paths:
         x-example: "btc"
         x-exportParamName: "Symbol"
       responses:
-        200:
+        "200":
           description: "OK"
           examples:
             application/json:
@@ -155,7 +170,7 @@ paths:
           headers: {}
           schema:
             $ref: "#/definitions/Public Price Change Response"
-        400:
+        "400":
           description: "Bad Request"
           examples:
             application/json:
@@ -198,13 +213,13 @@ paths:
         x-example: "1d"
         x-exportParamName: "Interval"
       responses:
-        200:
+        "200":
           description: "OK"
           examples: {}
           headers: {}
           schema:
             $ref: "#/definitions/Public Price History Response"
-        400:
+        "400":
           description: "Bad Request"
           examples:
             application/json:
@@ -221,7 +236,14 @@ paths:
       tags:
       - "Public"
       summary: "Trend"
-      description: ""
+      description: "The trend response contains a collection of forecasts for different\
+        \ intervals with the following attributes.\n\n+ `time_start` start time of\
+        \ the period the forecast is applicable for\n\n+ `time_end` end time of the\
+        \ period the forecast is applicable for\n\n+ `interval` interval in hours\
+        \ that the forecast is applicable for\n\n+ `weighted_price` forecasted weighted\
+        \ price during the period\n\n+ `change_pct` percent change in price for forecasted\
+        \ weighted_price relative to current price\n\n+ `change_usd` dollar change\
+        \ in price for forecasted weighted_price relative to current price"
       produces:
       - "application/json"
       parameters:
@@ -233,7 +255,7 @@ paths:
         x-example: "btc"
         x-exportParamName: "Symbol"
       responses:
-        200:
+        "200":
           description: "OK"
           examples:
             application/json:
@@ -263,7 +285,7 @@ paths:
           headers: {}
           schema:
             $ref: "#/definitions/Public Trend Response"
-        400:
+        "400":
           description: "Bad Request"
           examples:
             application/json:
@@ -275,52 +297,385 @@ paths:
           headers: {}
           schema:
             $ref: "#/definitions/Default Response"
-  /v1/public/waiting-list:
-    post:
+  /v1/private/forecast/{symbol}/{interval}:
+    get:
       tags:
-      - "Public"
-      summary: "Waiting List"
-      description: "Subscribe a user to the waiting list, `name` is not required."
+      - "Private"
+      summary: "Forecast"
+      description: "The forecast response contains a sequence of forecasts at the\
+        \ specified intervals, with the following attributes.\n\n+ `time_start` start\
+        \ time of the period the forecast is applicable for\n\n+ `time_end` end time\
+        \ of the period the forecast is applicable for\n\n+ `low` forecasted high\
+        \ during the period\n\n+ `high` forecasted low during the period\n\n+ `weighted_price`\
+        \ forecasted weighted price during the period\n\n+ `change_pct` percent change\
+        \ in price for forecasted weighted_price relative to current price\n\n+ `change_usd`\
+        \ dollar change in price for forecasted weighted_price relative to current\
+        \ price"
       produces:
       - "application/json"
       parameters:
-      - in: "body"
-        name: "body"
+      - name: "symbol"
+        in: "path"
+        description: "The cryptocurrency symbol."
+        required: true
+        type: "string"
+        x-example: "btc"
+        x-exportParamName: "Symbol"
+      - name: "interval"
+        in: "path"
+        description: "The forecast interval, 1h or 1d."
+        required: true
+        type: "string"
+        x-example: "1h"
+        x-exportParamName: "Interval"
+      - name: "Cookie"
+        in: "header"
+        description: "e.g. csrf=b1820141-1bad-4a9c-93c0-52022817ce89"
         required: false
-        schema:
-          $ref: "#/definitions/Public Waiting List Request"
-        x-exportParamName: "Body"
+        type: "string"
+        x-example: "csrf=b1820141-1bad-4a9c-93c0-52022817ce89"
+        x-exportParamName: "Cookie"
+        x-optionalDataType: "String"
+      - name: "X-csrf"
+        in: "header"
+        description: "e.g. b1820141-1bad-4a9c-93c0-52022817ce89"
+        required: false
+        type: "string"
+        x-example: "b1820141-1bad-4a9c-93c0-52022817ce89"
+        x-exportParamName: "XCsrf"
+        x-optionalDataType: "String"
       responses:
-        200:
+        "200":
           description: "OK"
           examples:
             application/json:
               success: true
               code: 200
               status: "success"
+              data:
+                forecast:
+                - time_start: 1568764800
+                  time_end: 1568851200
+                  low: 9971.28
+                  high: 10334.27
+                  change_pct: -1
+                  change_usd: -102.89
+                  confidence: 1
+                  weighted_price: 10188.11
+                - time_start: 1568851200
+                  time_end: 1568937600
+                  low: 9940.24
+                  high: 10233.11
+                  change_pct: -1.37
+                  change_usd: -140.55
+                  confidence: 1
+                  weighted_price: 10150.45
+                - time_start: 1568937600
+                  time_end: 1569024000
+                  low: 9917.6
+                  high: 10196.93
+                  change_pct: -1.15
+                  change_usd: -118.52
+                  confidence: 1
+                  weighted_price: 10172.48
+                - time_start: 1569024000
+                  time_end: 1569110400
+                  low: 9809.59
+                  high: 10342.96
+                  change_pct: -1.55
+                  change_usd: -159.55
+                  confidence: 1
+                  weighted_price: 10131.45
+                - time_start: 1569110400
+                  time_end: 1569196800
+                  low: 9901.2
+                  high: 10598.11
+                  change_pct: -1.56
+                  change_usd: -160.13
+                  confidence: 1
+                  weighted_price: 10130.87
+                - time_start: 1569196800
+                  time_end: 1569283200
+                  low: 10092.33
+                  high: 10431.12
+                  change_pct: -0.26
+                  change_usd: -27.18
+                  confidence: 1
+                  weighted_price: 10263.82
+                - time_start: 1569283200
+                  time_end: 1569369600
+                  low: 9933.06
+                  high: 10520.33
+                  change_pct: 0.96
+                  change_usd: 98.49
+                  confidence: 1
+                  weighted_price: 10389.49
+          headers: {}
+          schema:
+            $ref: "#/definitions/Private Forecast Response"
+        "400":
+          description: "Bad Request"
+          examples: {}
           headers: {}
           schema:
             $ref: "#/definitions/Default Response"
-        400:
-          description: "Bad Request"
+      security:
+      - oauth2: []
+  /v1/private/trend/{symbol}:
+    get:
+      tags:
+      - "Private"
+      summary: "Trend"
+      description: "The trend response contains a collection of forecasts for different\
+        \ intervals with the following attributes.\n\n+ `time_start` start time of\
+        \ the period the forecast is applicable for\n\n+ `time_end` end time of the\
+        \ period the forecast is applicable for\n\n+ `interval` interval in hours\
+        \ that the forecast is applicable for\n\n+ `weighted_price` forecasted weighted\
+        \ price during the period\n\n+ `change_pct` percent change in price for forecasted\
+        \ weighted_price relative to current price\n\n+ `change_usd` dollar change\
+        \ in price for forecasted weighted_price relative to current price"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "symbol"
+        in: "path"
+        description: "The cryptocurrency symbol."
+        required: true
+        type: "string"
+        x-example: "btc"
+        x-exportParamName: "Symbol"
+      - name: "Cookie"
+        in: "header"
+        description: "e.g. csrf=b1820141-1bad-4a9c-93c0-52022817ce89"
+        required: false
+        type: "string"
+        x-example: "csrf=b1820141-1bad-4a9c-93c0-52022817ce89"
+        x-exportParamName: "Cookie"
+        x-optionalDataType: "String"
+      - name: "X-csrf"
+        in: "header"
+        description: "e.g. b1820141-1bad-4a9c-93c0-52022817ce89"
+        required: false
+        type: "string"
+        x-example: "b1820141-1bad-4a9c-93c0-52022817ce89"
+        x-exportParamName: "XCsrf"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "OK"
           examples:
             application/json:
-              success: false
-              code: 400
-              status: "already_registered"
-              errors:
-              - "Email already registered for waiting list!"
+              success: true
+              code: 200
+              status: "success"
+              data:
+                trend:
+                - time_start: 1568822400
+                  time_end: 1568836800
+                  interval: "04:00:00"
+                  change_pct: 0.17
+                  change_usd: 17.85
+                  weighted_price: 10222.83
+                - time_start: 1568764800
+                  time_end: 1568851200
+                  interval: "24:00:00"
+                  change_pct: 0.46
+                  change_usd: 46.58
+                  weighted_price: 10266.58
+                - time_start: 1568764800
+                  time_end: 1569024000
+                  interval: "72:00:00"
+                  change_pct: -0.49
+                  change_usd: -49.66
+                  weighted_price: 10170.34
+                - time_start: 1568764800
+                  time_end: 1569369600
+                  interval: "168:00:00"
+                  change_pct: -0.16
+                  change_usd: -16.19
+                  weighted_price: 10203.81
+          headers: {}
+          schema:
+            $ref: "#/definitions/Public Trend Response"
+        "400":
+          description: "Bad Request"
+          examples: {}
           headers: {}
           schema:
             $ref: "#/definitions/Default Response"
-securityDefinitions: {}
+      security:
+      - oauth2: []
+  /v1/private/trend-tabular:
+    get:
+      tags:
+      - "Private"
+      summary: "Trend Tabular"
+      description: "The trend tabular response contains a collection of forecasts\
+        \ for all supported cryptocurrencies at different intervals with the following\
+        \ attributes.\n\n+ `time_start` start time of the period the forecast is applicable\
+        \ for\n\n+ `time_end` end time of the period the forecast is applicable for\n\
+        \n+ `interval` interval in hours that the forecast is applicable for\n\n+\
+        \ `weighted_price` forecasted weighted price during the period\n\n+ `change_pct`\
+        \ percent change in price for forecasted weighted_price relative to current\
+        \ price\n\n+ `change_usd` dollar change in price for forecasted weighted_price\
+        \ relative to current price"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Cookie"
+        in: "header"
+        description: "e.g. csrf=b1820141-1bad-4a9c-93c0-52022817ce89"
+        required: false
+        type: "string"
+        x-example: "csrf=b1820141-1bad-4a9c-93c0-52022817ce89"
+        x-exportParamName: "Cookie"
+        x-optionalDataType: "String"
+      - name: "X-csrf"
+        in: "header"
+        description: "e.g. b1820141-1bad-4a9c-93c0-52022817ce89"
+        required: false
+        type: "string"
+        x-example: "b1820141-1bad-4a9c-93c0-52022817ce89"
+        x-exportParamName: "XCsrf"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "OK"
+          examples:
+            application/json:
+              success: true
+              code: 200
+              status: "success"
+              data:
+                trend_tabular:
+                - symbol: "btc"
+                  name: "Bitcoin"
+                  trend:
+                  - time_start: 1568822400
+                    time_end: 1568836800
+                    interval: "04:00:00"
+                    change_pct: 0.17
+                    change_usd: 17.85
+                    weighted_price: 10222.83
+                  - time_start: 1568764800
+                    time_end: 1568851200
+                    interval: "24:00:00"
+                    change_pct: 0.46
+                    change_usd: 46.58
+                    weighted_price: 10266.58
+                  - time_start: 1568764800
+                    time_end: 1569024000
+                    interval: "72:00:00"
+                    change_pct: -0.49
+                    change_usd: -49.66
+                    weighted_price: 10170.34
+                  - time_start: 1568764800
+                    time_end: 1569369600
+                    interval: "168:00:00"
+                    change_pct: -0.16
+                    change_usd: -16.19
+                    weighted_price: 10203.81
+          headers: {}
+          schema:
+            $ref: "#/definitions/Private Trend Tabular Response"
+        "400":
+          description: "Bad Request"
+          examples: {}
+          headers: {}
+          schema:
+            $ref: "#/definitions/Default Response"
+      security:
+      - oauth2: []
+  /v1/private/accuracy/{symbol}/{interval}/{period}:
+    get:
+      tags:
+      - "Private"
+      summary: "Accuracy"
+      description: "The accuracy response contains the following attributes.\n\n+\
+        \ `rmse` Root Mean Square Error\n\n+ `mae` Mean Absolute error\n\n+ `r2` R\
+        \ Squared\n\n+ `ci` Confidence Interval lower and upper error bounds"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "symbol"
+        in: "path"
+        description: "The cryptocurrency symbol."
+        required: true
+        type: "string"
+        x-example: "btc"
+        x-exportParamName: "Symbol"
+      - name: "interval"
+        in: "path"
+        description: "The forecast interval, 1h or 1d."
+        required: true
+        type: "string"
+        x-example: "1h"
+        x-exportParamName: "Interval"
+      - name: "period"
+        in: "path"
+        description: "The period for computing the accuracy, such as the past 7 days."
+        required: true
+        type: "string"
+        x-example: "7d"
+        x-exportParamName: "Period"
+      - name: "Cookie"
+        in: "header"
+        description: "e.g. csrf=b1820141-1bad-4a9c-93c0-52022817ce89"
+        required: false
+        type: "string"
+        x-example: "csrf=b1820141-1bad-4a9c-93c0-52022817ce89"
+        x-exportParamName: "Cookie"
+        x-optionalDataType: "String"
+      - name: "X-csrf"
+        in: "header"
+        description: "e.g. b1820141-1bad-4a9c-93c0-52022817ce89"
+        required: false
+        type: "string"
+        x-example: "b1820141-1bad-4a9c-93c0-52022817ce89"
+        x-exportParamName: "XCsrf"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "OK"
+          examples:
+            application/json:
+              success: true
+              code: 200
+              status: "success"
+              data:
+                rmse: 0.55
+                mae: 0.32
+                r2: 0.99
+                ci:
+                - 0.26
+                - 0.38
+          headers: {}
+          schema:
+            $ref: "#/definitions/Private Accuracy Response"
+        "400":
+          description: "Bad Request"
+          examples: {}
+          headers: {}
+          schema:
+            $ref: "#/definitions/Default Response"
+      security:
+      - oauth2: []
+securityDefinitions:
+  oauth2:
+    type: "oauth2"
+    authorizationUrl: ""
+    tokenUrl: ""
+    flow: "accessCode"
+    scopes: {}
 definitions:
   Symbols Route: {}
   Price Current Route: {}
   Price Change Route: {}
   Price History Route: {}
   Trend Route: {}
-  Waiting List Route: {}
+  Forecast Route: {}
+  Trend Tabluar Route: {}
+  Accuracy Route: {}
   Public Symbols Response_data_symbols:
     type: "object"
     required:
@@ -569,26 +924,139 @@ definitions:
       errors:
         type: "array"
         items: {}
-  Public Waiting List Request:
+  Private Forecast Response_data_forecast:
     type: "object"
     required:
-    - "email"
-    - "list_id"
-    - "service"
+    - "change_pct"
+    - "change_usd"
+    - "confidence"
+    - "high"
+    - "low"
+    - "time_end"
+    - "time_start"
+    - "weighted_price"
     properties:
+      time_start:
+        type: "number"
+      time_end:
+        type: "number"
+      low:
+        type: "number"
+      weighted_price:
+        type: "number"
+      high:
+        type: "number"
+      confidence:
+        type: "number"
+      change_usd:
+        type: "number"
+      change_pct:
+        type: "number"
+  Private Forecast Response_data:
+    type: "object"
+    required:
+    - "forecast"
+    properties:
+      forecast:
+        type: "array"
+        items:
+          $ref: "#/definitions/Private Forecast Response_data_forecast"
+  Private Forecast Response:
+    type: "object"
+    required:
+    - "code"
+    - "data"
+    - "status"
+    - "success"
+    properties:
+      success:
+        type: "boolean"
+      code:
+        type: "integer"
+      status:
+        type: "string"
+      data:
+        $ref: "#/definitions/Private Forecast Response_data"
+      errors:
+        type: "array"
+        items: {}
+  Private Trend Tabular Response_data_trend_tabular:
+    type: "object"
+    required:
+    - "name"
+    - "symbol"
+    - "trend"
+    properties:
+      symbol:
+        type: "string"
       name:
         type: "string"
-      email:
+      trend:
+        type: "array"
+        items:
+          $ref: "#/definitions/Public Trend Response_data_trend"
+  Private Trend Tabular Response_data:
+    type: "object"
+    required:
+    - "trend_tabular"
+    properties:
+      trend_tabular:
+        type: "array"
+        items:
+          $ref: "#/definitions/Private Trend Tabular Response_data_trend_tabular"
+  Private Trend Tabular Response:
+    type: "object"
+    required:
+    - "code"
+    - "data"
+    - "status"
+    - "success"
+    properties:
+      success:
+        type: "boolean"
+      code:
+        type: "integer"
+      status:
         type: "string"
-        format: "email"
-        pattern: "^[^@]+@[^@]+$"
-      service:
+      data:
+        $ref: "#/definitions/Private Trend Tabular Response_data"
+      errors:
+        type: "array"
+        items: {}
+  Private Accuracy Response_data:
+    type: "object"
+    required:
+    - "ci"
+    - "mae"
+    - "r2"
+    - "rmse"
+    properties:
+      rmse:
+        type: "number"
+      mae:
+        type: "number"
+      r2:
+        type: "number"
+      ci:
+        type: "array"
+        items:
+          type: "number"
+  Private Accuracy Response:
+    type: "object"
+    required:
+    - "code"
+    - "data"
+    - "status"
+    - "success"
+    properties:
+      success:
+        type: "boolean"
+      code:
+        type: "integer"
+      status:
         type: "string"
-      list_id:
-        type: "string"
-    title: "Public Waiting List Request"
-    example:
-      name: "Jon"
-      email: "jon@investabit.com"
-      service: "cryptoweather"
-      list_id: "f5aDz"
+      data:
+        $ref: "#/definitions/Private Accuracy Response_data"
+      errors:
+        type: "array"
+        items: {}

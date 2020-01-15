@@ -9,5 +9,13 @@
 
 package swagger
 
-type TrendRoute struct {
+type PrivateForecastResponseDataForecast struct {
+	TimeStart float32 `json:"time_start"`
+	TimeEnd float32 `json:"time_end"`
+	Low float32 `json:"low"`
+	WeightedPrice float32 `json:"weighted_price"`
+	High float32 `json:"high"`
+	Confidence float32 `json:"confidence"`
+	ChangeUsd float32 `json:"change_usd"`
+	ChangePct float32 `json:"change_pct"`
 }

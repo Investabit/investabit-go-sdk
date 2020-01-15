@@ -9,5 +9,6 @@
 
 package swagger
 
-type TrendRoute struct {
+type PrivateTrendTabularResponseData struct {
+	TrendTabular []PrivateTrendTabularResponseDataTrendTabular `json:"trend_tabular"`
 }

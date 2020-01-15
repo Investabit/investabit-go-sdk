@@ -9,5 +9,9 @@
 
 package swagger
 
-type TrendRoute struct {
+type PrivateAccuracyResponseData struct {
+	Rmse float32 `json:"rmse"`
+	Mae float32 `json:"mae"`
+	R2 float32 `json:"r2"`
+	Ci []float32 `json:"ci"`
 }

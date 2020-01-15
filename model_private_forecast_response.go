@@ -9,5 +9,10 @@
 
 package swagger
 
-type TrendRoute struct {
+type PrivateForecastResponse struct {
+	Success bool `json:"success"`
+	Code int32 `json:"code"`
+	Status string `json:"status"`
+	Data *PrivateForecastResponseData `json:"data"`
+	Errors []interface{} `json:"errors,omitempty"`
 }

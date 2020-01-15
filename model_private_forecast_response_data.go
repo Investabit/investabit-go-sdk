@@ -9,5 +9,6 @@
 
 package swagger
 
-type TrendRoute struct {
+type PrivateForecastResponseData struct {
+	Forecast []PrivateForecastResponseDataForecast `json:"forecast"`
 }
