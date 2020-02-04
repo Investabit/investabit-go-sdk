@@ -297,6 +297,149 @@ paths:
           headers: {}
           schema:
             $ref: "#/definitions/Default Response"
+  /v1/public/summary:
+    get:
+      tags:
+      - "Public"
+      summary: "Summary"
+      description: ""
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "OK"
+          examples:
+            application/json:
+              success: true
+              code: 200
+              status: "success"
+              data:
+              - icon: "https://storage.googleapis.com/investabit-index/symbols/btc.svg"
+                name: "Bitcoin"
+                slug: "btc"
+                added: 1483228800
+                color:
+                  b: 73
+                  g: 163
+                  r: 230
+                trend:
+                - interval: "24:00:00"
+                  time_end: 1578355200
+                  change_pct: 0.88
+                  change_usd: 64.97
+                  time_start: 1578268800
+                  weighted_price: 7429.57
+                price_btc: 1
+                price_usd: 7599.5017168
+                market_cap: 1.378949497207858E11
+                volume_usd: 2.18714406079213E10
+                change_pct: 1.23
+                symbol_name: "bitcoin"
+                market_data_time: 1578342816
+              - icon: "https://storage.googleapis.com/investabit-index/symbols/eos.svg"
+                name: "EOS"
+                slug: "eos"
+                added: 1501545600
+                color:
+                  b: 44
+                  g: 44
+                  r: 44
+                trend:
+                - interval: "24:00:00"
+                  time_end: 1578355200
+                  change_pct: 0.51
+                  change_usd: 0.01
+                  time_start: 1578268800
+                  weighted_price: 2.7
+                price_btc: 3.736517737830955E-4
+                price_usd: 2.83956729635
+                market_cap: 2.690665353338475E9
+                volume_usd: 2.28319682234393E9
+                change_pct: 1.46
+                symbol_name: "eos"
+                market_data_time: 1578342846
+              - icon: "https://storage.googleapis.com/investabit-index/symbols/eth.svg"
+                name: "Ethereum"
+                slug: "eth"
+                added: 1483228800
+                color:
+                  b: 41
+                  g: 40
+                  r: 39
+                trend:
+                - interval: "24:00:00"
+                  time_end: 1578355200
+                  change_pct: -0.37
+                  change_usd: -0.5
+                  time_start: 1578268800
+                  weighted_price: 135.06
+                price_btc: 0.018781249570675798
+                price_usd: 142.728138356
+                market_cap: 1.5581445781468378E10
+                volume_usd: 8.84993383463866E9
+                change_pct: 1.59
+                symbol_name: "ethereum"
+                market_data_time: 1578342860
+              - icon: "https://storage.googleapis.com/investabit-index/symbols/ltc.svg"
+                name: "Litecoin"
+                slug: "ltc"
+                added: 1483228800
+                color:
+                  b: 169
+                  g: 169
+                  r: 169
+                trend:
+                - interval: "24:00:00"
+                  time_end: 1578355200
+                  change_pct: 0.27
+                  change_usd: 0.12
+                  time_start: 1578268800
+                  weighted_price: 43.46
+                price_btc: 0.00599114379807939
+                price_usd: 45.5297075791
+                market_cap: 2.904786549636796E9
+                volume_usd: 3.26774812808392E9
+                change_pct: 0.79
+                symbol_name: "litecoin"
+                market_data_time: 1578342844
+              - icon: "https://storage.googleapis.com/investabit-index/symbols/xrp.svg"
+                name: "Ripple"
+                slug: "xrp"
+                added: 1483228800
+                color:
+                  b: 0
+                  g: 0
+                  r: 0
+                trend:
+                - interval: "24:00:00"
+                  time_end: 1578355200
+                  change_pct: -0.84
+                  change_usd: -0.0016
+                  time_start: 1578268800
+                  weighted_price: 0.193
+                price_btc: 2.9267865211912494E-5
+                price_usd: 0.222421191925
+                market_cap: 9.645570481162577E9
+                volume_usd: 2.14957867271926E9
+                change_pct: 0.46
+                symbol_name: "ripple"
+                market_data_time: 1578342842
+          headers: {}
+          schema:
+            $ref: "#/definitions/Public Summary Response"
+        "400":
+          description: "Bad Request"
+          examples:
+            application/json:
+              success: false
+              code: 400
+              status: "invalid_symbol"
+              errors:
+              - "Invalid symbol, cryptocurrency not found."
+          headers: {}
+          schema:
+            $ref: "#/definitions/Default Response"
   /v1/private/forecast/{symbol}/{interval}:
     get:
       tags:
@@ -673,6 +816,7 @@ definitions:
   Price Change Route: {}
   Price History Route: {}
   Trend Route: {}
+  Summary Route: {}
   Forecast Route: {}
   Trend Tabluar Route: {}
   Accuracy Route: {}
@@ -921,6 +1065,85 @@ definitions:
         type: "string"
       data:
         $ref: "#/definitions/Public Trend Response_data"
+      errors:
+        type: "array"
+        items: {}
+  Public Summary Response_color:
+    type: "object"
+    required:
+    - "b"
+    - "g"
+    - "r"
+    properties:
+      b:
+        type: "number"
+      g:
+        type: "number"
+      r:
+        type: "number"
+  Public Summary Response_data:
+    type: "object"
+    required:
+    - "added"
+    - "change_pct"
+    - "color"
+    - "icon"
+    - "market_cap"
+    - "market_data_time"
+    - "name"
+    - "price_btc"
+    - "price_usd"
+    - "slug"
+    - "symbol_name"
+    - "trend"
+    - "volume_usd"
+    properties:
+      icon:
+        type: "string"
+      name:
+        type: "string"
+      symbol_name:
+        type: "string"
+      slug:
+        type: "string"
+      added:
+        type: "number"
+      color:
+        $ref: "#/definitions/Public Summary Response_color"
+      price_btc:
+        type: "number"
+      price_usd:
+        type: "number"
+      market_cap:
+        type: "number"
+      volume_usd:
+        type: "number"
+      change_pct:
+        type: "number"
+      market_data_time:
+        type: "number"
+      trend:
+        type: "array"
+        items:
+          $ref: "#/definitions/Public Trend Response_data_trend"
+  Public Summary Response:
+    type: "object"
+    required:
+    - "code"
+    - "data"
+    - "status"
+    - "success"
+    properties:
+      success:
+        type: "boolean"
+      code:
+        type: "integer"
+      status:
+        type: "string"
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/Public Summary Response_data"
       errors:
         type: "array"
         items: {}

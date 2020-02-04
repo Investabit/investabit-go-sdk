@@ -28,6 +28,7 @@ Class | Method | HTTP request | Description
 *PublicApi* | [**V1PublicPriceChangeSymbolGet**](docs/PublicApi.md#v1publicpricechangesymbolget) | **Get** /v1/public/price-change/{symbol} | Price Change
 *PublicApi* | [**V1PublicPriceCurrentSymbolGet**](docs/PublicApi.md#v1publicpricecurrentsymbolget) | **Get** /v1/public/price-current/{symbol} | Price Current
 *PublicApi* | [**V1PublicPriceHistorySymbolPeriodIntervalGet**](docs/PublicApi.md#v1publicpricehistorysymbolperiodintervalget) | **Get** /v1/public/price-history/{symbol}/{period}/{interval} | Price History
+*PublicApi* | [**V1PublicSummaryGet**](docs/PublicApi.md#v1publicsummaryget) | **Get** /v1/public/summary | Summary
 *PublicApi* | [**V1PublicSymbolsGet**](docs/PublicApi.md#v1publicsymbolsget) | **Get** /v1/public/symbols | Symbols
 *PublicApi* | [**V1PublicTrendSymbolGet**](docs/PublicApi.md#v1publictrendsymbolget) | **Get** /v1/public/trend/{symbol} | Trend
 
@@ -58,12 +59,16 @@ Class | Method | HTTP request | Description
  - [PublicPriceHistoryResponseData](docs/PublicPriceHistoryResponseData.md)
  - [PublicPriceHistoryResponseDataHistory](docs/PublicPriceHistoryResponseDataHistory.md)
  - [PublicPriceHistoryResponseDataPriceHistory](docs/PublicPriceHistoryResponseDataPriceHistory.md)
+ - [PublicSummaryResponse](docs/PublicSummaryResponse.md)
+ - [PublicSummaryResponseColor](docs/PublicSummaryResponseColor.md)
+ - [PublicSummaryResponseData](docs/PublicSummaryResponseData.md)
  - [PublicSymbolsResponse](docs/PublicSymbolsResponse.md)
  - [PublicSymbolsResponseData](docs/PublicSymbolsResponseData.md)
  - [PublicSymbolsResponseDataSymbols](docs/PublicSymbolsResponseDataSymbols.md)
  - [PublicTrendResponse](docs/PublicTrendResponse.md)
  - [PublicTrendResponseData](docs/PublicTrendResponseData.md)
  - [PublicTrendResponseDataTrend](docs/PublicTrendResponseDataTrend.md)
+ - [SummaryRoute](docs/SummaryRoute.md)
  - [SymbolsRoute](docs/SymbolsRoute.md)
  - [TrendRoute](docs/TrendRoute.md)
  - [TrendTabluarRoute](docs/TrendTabluarRoute.md)

@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**V1PublicPriceChangeSymbolGet**](PublicApi.md#V1PublicPriceChangeSymbolGet) | **Get** /v1/public/price-change/{symbol} | Price Change
 [**V1PublicPriceCurrentSymbolGet**](PublicApi.md#V1PublicPriceCurrentSymbolGet) | **Get** /v1/public/price-current/{symbol} | Price Current
 [**V1PublicPriceHistorySymbolPeriodIntervalGet**](PublicApi.md#V1PublicPriceHistorySymbolPeriodIntervalGet) | **Get** /v1/public/price-history/{symbol}/{period}/{interval} | Price History
+[**V1PublicSummaryGet**](PublicApi.md#V1PublicSummaryGet) | **Get** /v1/public/summary | Summary
 [**V1PublicSymbolsGet**](PublicApi.md#V1PublicSymbolsGet) | **Get** /v1/public/symbols | Symbols
 [**V1PublicTrendSymbolGet**](PublicApi.md#V1PublicTrendSymbolGet) | **Get** /v1/public/trend/{symbol} | Trend
 
@@ -85,6 +86,30 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PublicPriceHistoryResponse**](Public Price History Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **V1PublicSummaryGet**
+> PublicSummaryResponse V1PublicSummaryGet(ctx, )
+Summary
+
+
+
+### Required Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**PublicSummaryResponse**](Public Summary Response.md)
 
 ### Authorization
 
