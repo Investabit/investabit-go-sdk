@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**V1PrivateAccuracySymbolIntervalPeriodGet**](PrivateApi.md#V1PrivateAccuracySymbolIntervalPeriodGet) | **Get** /v1/private/accuracy/{symbol}/{interval}/{period} | Accuracy
 [**V1PrivateForecastSymbolIntervalGet**](PrivateApi.md#V1PrivateForecastSymbolIntervalGet) | **Get** /v1/private/forecast/{symbol}/{interval} | Forecast
+[**V1PrivateForecastTimeSymbolIntervalPeriodGet**](PrivateApi.md#V1PrivateForecastTimeSymbolIntervalPeriodGet) | **Get** /v1/private/forecast-time/{symbol}/{interval}/{period} | Forecast Time
 [**V1PrivateTrendSymbolGet**](PrivateApi.md#V1PrivateTrendSymbolGet) | **Get** /v1/private/trend/{symbol} | Trend
 [**V1PrivateTrendTabularGet**](PrivateApi.md#V1PrivateTrendTabularGet) | **Get** /v1/private/trend-tabular | Trend Tabular
 
@@ -24,10 +25,10 @@ Name | Type | Description  | Notes
   **symbol** | **string**| The cryptocurrency symbol. | 
   **interval** | **string**| The forecast interval, 1h or 1d. | 
   **period** | **string**| The period for computing the accuracy, such as the past 7 days. | 
- **optional** | ***V1PrivateAccuracySymbolIntervalPeriodGetOpts** | optional parameters | nil if no parameters
+ **optional** | ***PrivateApiV1PrivateAccuracySymbolIntervalPeriodGetOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a pointer to a V1PrivateAccuracySymbolIntervalPeriodGetOpts struct
+Optional parameters are passed through a pointer to a PrivateApiV1PrivateAccuracySymbolIntervalPeriodGetOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -65,10 +66,10 @@ Name | Type | Description  | Notes
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **symbol** | **string**| The cryptocurrency symbol. | 
   **interval** | **string**| The forecast interval, 1h or 1d. | 
- **optional** | ***V1PrivateForecastSymbolIntervalGetOpts** | optional parameters | nil if no parameters
+ **optional** | ***PrivateApiV1PrivateForecastSymbolIntervalGetOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a pointer to a V1PrivateForecastSymbolIntervalGetOpts struct
+Optional parameters are passed through a pointer to a PrivateApiV1PrivateForecastSymbolIntervalGetOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -80,6 +81,48 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PrivateForecastResponse**](Private Forecast Response.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **V1PrivateForecastTimeSymbolIntervalPeriodGet**
+> PrivateForecastTimeResponse V1PrivateForecastTimeSymbolIntervalPeriodGet(ctx, symbol, interval, period, optional)
+Forecast Time
+
+
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **symbol** | **string**| The cryptocurrency symbol. | 
+  **interval** | **string**| The forecast interval, 1h or 1d. | 
+  **period** | **string**| The period for computing the error bounds, typically 7d or 30d. | 
+ **optional** | ***PrivateApiV1PrivateForecastTimeSymbolIntervalPeriodGetOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a pointer to a PrivateApiV1PrivateForecastTimeSymbolIntervalPeriodGetOpts struct
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **cookie** | **optional.String**| e.g. csrf&#x3D;b1820141-1bad-4a9c-93c0-52022817ce89 | 
+ **xCsrf** | **optional.String**| e.g. b1820141-1bad-4a9c-93c0-52022817ce89 | 
+
+### Return type
+
+[**PrivateForecastTimeResponse**](Private Forecast Time Response.md)
 
 ### Authorization
 
@@ -104,10 +147,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **symbol** | **string**| The cryptocurrency symbol. | 
- **optional** | ***V1PrivateTrendSymbolGetOpts** | optional parameters | nil if no parameters
+ **optional** | ***PrivateApiV1PrivateTrendSymbolGetOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a pointer to a V1PrivateTrendSymbolGetOpts struct
+Optional parameters are passed through a pointer to a PrivateApiV1PrivateTrendSymbolGetOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -141,10 +184,10 @@ The trend tabular response contains a collection of forecasts for all supported 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***V1PrivateTrendTabularGetOpts** | optional parameters | nil if no parameters
+ **optional** | ***PrivateApiV1PrivateTrendTabularGetOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a pointer to a V1PrivateTrendTabularGetOpts struct
+Optional parameters are passed through a pointer to a PrivateApiV1PrivateTrendTabularGetOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

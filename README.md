@@ -23,6 +23,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *PrivateApi* | [**V1PrivateAccuracySymbolIntervalPeriodGet**](docs/PrivateApi.md#v1privateaccuracysymbolintervalperiodget) | **Get** /v1/private/accuracy/{symbol}/{interval}/{period} | Accuracy
 *PrivateApi* | [**V1PrivateForecastSymbolIntervalGet**](docs/PrivateApi.md#v1privateforecastsymbolintervalget) | **Get** /v1/private/forecast/{symbol}/{interval} | Forecast
+*PrivateApi* | [**V1PrivateForecastTimeSymbolIntervalPeriodGet**](docs/PrivateApi.md#v1privateforecasttimesymbolintervalperiodget) | **Get** /v1/private/forecast-time/{symbol}/{interval}/{period} | Forecast Time
 *PrivateApi* | [**V1PrivateTrendSymbolGet**](docs/PrivateApi.md#v1privatetrendsymbolget) | **Get** /v1/private/trend/{symbol} | Trend
 *PrivateApi* | [**V1PrivateTrendTabularGet**](docs/PrivateApi.md#v1privatetrendtabularget) | **Get** /v1/private/trend-tabular | Trend Tabular
 *PublicApi* | [**V1PublicPriceChangeSymbolGet**](docs/PublicApi.md#v1publicpricechangesymbolget) | **Get** /v1/public/price-change/{symbol} | Price Change
@@ -38,6 +39,7 @@ Class | Method | HTTP request | Description
  - [AccuracyRoute](docs/AccuracyRoute.md)
  - [DefaultResponse](docs/DefaultResponse.md)
  - [ForecastRoute](docs/ForecastRoute.md)
+ - [ForecastTimeRoute](docs/ForecastTimeRoute.md)
  - [PriceChangeRoute](docs/PriceChangeRoute.md)
  - [PriceCurrentRoute](docs/PriceCurrentRoute.md)
  - [PriceHistoryRoute](docs/PriceHistoryRoute.md)
@@ -46,6 +48,8 @@ Class | Method | HTTP request | Description
  - [PrivateForecastResponse](docs/PrivateForecastResponse.md)
  - [PrivateForecastResponseData](docs/PrivateForecastResponseData.md)
  - [PrivateForecastResponseDataForecast](docs/PrivateForecastResponseDataForecast.md)
+ - [PrivateForecastTimeResponse](docs/PrivateForecastTimeResponse.md)
+ - [PrivateForecastTimeResponseData](docs/PrivateForecastTimeResponseData.md)
  - [PrivateTrendTabularResponse](docs/PrivateTrendTabularResponse.md)
  - [PrivateTrendTabularResponseData](docs/PrivateTrendTabularResponseData.md)
  - [PrivateTrendTabularResponseDataTrendTabular](docs/PrivateTrendTabularResponseDataTrendTabular.md)
