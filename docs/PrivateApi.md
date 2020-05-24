@@ -5,6 +5,7 @@ All URIs are relative to *https://api.cryptoweather.ai*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**V1PrivateAccuracySymbolIntervalPeriodGet**](PrivateApi.md#V1PrivateAccuracySymbolIntervalPeriodGet) | **Get** /v1/private/accuracy/{symbol}/{interval}/{period} | Accuracy
+[**V1PrivateForecastAccuracySymbolIntervalPeriodGet**](PrivateApi.md#V1PrivateForecastAccuracySymbolIntervalPeriodGet) | **Get** /v1/private/forecast-accuracy/{symbol}/{interval}/{period} | Forecast Accuracy
 [**V1PrivateForecastSymbolIntervalGet**](PrivateApi.md#V1PrivateForecastSymbolIntervalGet) | **Get** /v1/private/forecast/{symbol}/{interval} | Forecast
 [**V1PrivateForecastTimeSymbolIntervalPeriodGet**](PrivateApi.md#V1PrivateForecastTimeSymbolIntervalPeriodGet) | **Get** /v1/private/forecast-time/{symbol}/{interval}/{period} | Forecast Time
 [**V1PrivateTrendSymbolGet**](PrivateApi.md#V1PrivateTrendSymbolGet) | **Get** /v1/private/trend/{symbol} | Trend
@@ -41,6 +42,48 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PrivateAccuracyResponse**](Private Accuracy Response.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **V1PrivateForecastAccuracySymbolIntervalPeriodGet**
+> PrivateForecastAccuracyResponse V1PrivateForecastAccuracySymbolIntervalPeriodGet(ctx, symbol, interval, period, optional)
+Forecast Accuracy
+
+
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **symbol** | **string**| The cryptocurrency symbol. | 
+  **interval** | **string**| The forecast interval, 1h or 1d. | 
+  **period** | **string**| The period for computing the error bounds, typically 7d or 30d. | 
+ **optional** | ***PrivateApiV1PrivateForecastAccuracySymbolIntervalPeriodGetOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a pointer to a PrivateApiV1PrivateForecastAccuracySymbolIntervalPeriodGetOpts struct
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **cookie** | **optional.String**| e.g. csrf&#x3D;b1820141-1bad-4a9c-93c0-52022817ce89 | 
+ **xCsrf** | **optional.String**| e.g. b1820141-1bad-4a9c-93c0-52022817ce89 | 
+
+### Return type
+
+[**PrivateForecastAccuracyResponse**](Private Forecast Accuracy Response.md)
 
 ### Authorization
 

@@ -22,6 +22,7 @@ All URIs are relative to *https://api.cryptoweather.ai*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *PrivateApi* | [**V1PrivateAccuracySymbolIntervalPeriodGet**](docs/PrivateApi.md#v1privateaccuracysymbolintervalperiodget) | **Get** /v1/private/accuracy/{symbol}/{interval}/{period} | Accuracy
+*PrivateApi* | [**V1PrivateForecastAccuracySymbolIntervalPeriodGet**](docs/PrivateApi.md#v1privateforecastaccuracysymbolintervalperiodget) | **Get** /v1/private/forecast-accuracy/{symbol}/{interval}/{period} | Forecast Accuracy
 *PrivateApi* | [**V1PrivateForecastSymbolIntervalGet**](docs/PrivateApi.md#v1privateforecastsymbolintervalget) | **Get** /v1/private/forecast/{symbol}/{interval} | Forecast
 *PrivateApi* | [**V1PrivateForecastTimeSymbolIntervalPeriodGet**](docs/PrivateApi.md#v1privateforecasttimesymbolintervalperiodget) | **Get** /v1/private/forecast-time/{symbol}/{interval}/{period} | Forecast Time
 *PrivateApi* | [**V1PrivateTrendSymbolGet**](docs/PrivateApi.md#v1privatetrendsymbolget) | **Get** /v1/private/trend/{symbol} | Trend
@@ -38,6 +39,7 @@ Class | Method | HTTP request | Description
 
  - [AccuracyRoute](docs/AccuracyRoute.md)
  - [DefaultResponse](docs/DefaultResponse.md)
+ - [ForecastAccuracyRoute](docs/ForecastAccuracyRoute.md)
  - [ForecastRoute](docs/ForecastRoute.md)
  - [ForecastTimeRoute](docs/ForecastTimeRoute.md)
  - [PriceChangeRoute](docs/PriceChangeRoute.md)
@@ -45,6 +47,8 @@ Class | Method | HTTP request | Description
  - [PriceHistoryRoute](docs/PriceHistoryRoute.md)
  - [PrivateAccuracyResponse](docs/PrivateAccuracyResponse.md)
  - [PrivateAccuracyResponseData](docs/PrivateAccuracyResponseData.md)
+ - [PrivateForecastAccuracyResponse](docs/PrivateForecastAccuracyResponse.md)
+ - [PrivateForecastAccuracyResponseData](docs/PrivateForecastAccuracyResponseData.md)
  - [PrivateForecastResponse](docs/PrivateForecastResponse.md)
  - [PrivateForecastResponseData](docs/PrivateForecastResponseData.md)
  - [PrivateForecastResponseDataForecast](docs/PrivateForecastResponseDataForecast.md)

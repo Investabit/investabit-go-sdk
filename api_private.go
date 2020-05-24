@@ -147,6 +147,125 @@ func (a *PrivateApiService) V1PrivateAccuracySymbolIntervalPeriodGet(ctx context
 }
 
 /* 
+PrivateApiService Forecast Accuracy
+
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param symbol The cryptocurrency symbol.
+ * @param interval The forecast interval, 1h or 1d.
+ * @param period The period for computing the error bounds, typically 7d or 30d.
+ * @param optional nil or *PrivateApiV1PrivateForecastAccuracySymbolIntervalPeriodGetOpts - Optional Parameters:
+     * @param "Cookie" (optional.String) -  e.g. csrf&#x3D;b1820141-1bad-4a9c-93c0-52022817ce89
+     * @param "XCsrf" (optional.String) -  e.g. b1820141-1bad-4a9c-93c0-52022817ce89
+
+@return PrivateForecastAccuracyResponse
+*/
+
+type PrivateApiV1PrivateForecastAccuracySymbolIntervalPeriodGetOpts struct { 
+	Cookie optional.String
+	XCsrf optional.String
+}
+
+func (a *PrivateApiService) V1PrivateForecastAccuracySymbolIntervalPeriodGet(ctx context.Context, symbol string, interval string, period string, localVarOptionals *PrivateApiV1PrivateForecastAccuracySymbolIntervalPeriodGetOpts) (PrivateForecastAccuracyResponse, *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Get")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+		localVarReturnValue PrivateForecastAccuracyResponse
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/v1/private/forecast-accuracy/{symbol}/{interval}/{period}"
+	localVarPath = strings.Replace(localVarPath, "{"+"symbol"+"}", fmt.Sprintf("%v", symbol), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"interval"+"}", fmt.Sprintf("%v", interval), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"period"+"}", fmt.Sprintf("%v", period), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
+	if localVarOptionals != nil && localVarOptionals.Cookie.IsSet() {
+		localVarHeaderParams["Cookie"] = parameterToString(localVarOptionals.Cookie.Value(), "")
+	}
+	if localVarOptionals != nil && localVarOptionals.XCsrf.IsSet() {
+		localVarHeaderParams["X-csrf"] = parameterToString(localVarOptionals.XCsrf.Value(), "")
+	}
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHttpResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode < 300 {
+		// If we succeed, return the data, otherwise pass on to decode error.
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+		if err == nil { 
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		newErr := GenericSwaggerError{
+			body: localVarBody,
+			error: localVarHttpResponse.Status,
+		}
+		
+		if localVarHttpResponse.StatusCode == 200 {
+			var v PrivateForecastAccuracyResponse
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		
+		if localVarHttpResponse.StatusCode == 400 {
+			var v DefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		
+		return localVarReturnValue, localVarHttpResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHttpResponse, nil
+}
+
+/* 
 PrivateApiService Forecast
 The forecast response contains a sequence of forecasts at the specified intervals, with the following attributes.  + &#x60;time_start&#x60; start time of the period the forecast is applicable for  + &#x60;time_end&#x60; end time of the period the forecast is applicable for  + &#x60;low&#x60; forecasted high during the period  + &#x60;high&#x60; forecasted low during the period  + &#x60;weighted_price&#x60; forecasted weighted price during the period  + &#x60;change_pct&#x60; percent change in price for forecasted weighted_price relative to current price  + &#x60;change_usd&#x60; dollar change in price for forecasted weighted_price relative to current price
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().

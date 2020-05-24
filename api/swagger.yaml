@@ -796,6 +796,73 @@ paths:
             $ref: "#/definitions/Default Response"
       security:
       - oauth2: []
+  /v1/private/forecast-accuracy/{symbol}/{interval}/{period}:
+    get:
+      tags:
+      - "Private"
+      summary: "Forecast Accuracy"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: "symbol"
+        in: "path"
+        description: "The cryptocurrency symbol."
+        required: true
+        type: "string"
+        x-example: "btc"
+        x-exportParamName: "Symbol"
+      - name: "interval"
+        in: "path"
+        description: "The forecast interval, 1h or 1d."
+        required: true
+        type: "string"
+        x-example: "1h"
+        x-exportParamName: "Interval"
+      - name: "period"
+        in: "path"
+        description: "The period for computing the error bounds, typically 7d or 30d."
+        required: true
+        type: "string"
+        x-example: "7d"
+        x-exportParamName: "Period"
+      - name: "Cookie"
+        in: "header"
+        description: "e.g. csrf=b1820141-1bad-4a9c-93c0-52022817ce89"
+        required: false
+        type: "string"
+        x-example: "csrf=b1820141-1bad-4a9c-93c0-52022817ce89"
+        x-exportParamName: "Cookie"
+        x-optionalDataType: "String"
+      - name: "X-csrf"
+        in: "header"
+        description: "e.g. b1820141-1bad-4a9c-93c0-52022817ce89"
+        required: false
+        type: "string"
+        x-example: "b1820141-1bad-4a9c-93c0-52022817ce89"
+        x-exportParamName: "XCsrf"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "OK"
+          examples:
+            application/json:
+              success: true
+              code: 200
+              status: "success"
+              data:
+                accuracy: 76.59
+          headers: {}
+          schema:
+            $ref: "#/definitions/Private Forecast Accuracy Response"
+        "400":
+          description: "Bad Request"
+          examples: {}
+          headers: {}
+          schema:
+            $ref: "#/definitions/Default Response"
+      security:
+      - oauth2: []
   /v1/private/accuracy/{symbol}/{interval}/{period}:
     get:
       tags:
@@ -887,6 +954,7 @@ definitions:
   Forecast Route: {}
   Trend Tabluar Route: {}
   Forecast Time Route: {}
+  Forecast Accuracy Route: {}
   Accuracy Route: {}
   Public Symbols Response_data_symbols:
     type: "object"
@@ -1337,6 +1405,32 @@ definitions:
         type: "string"
       data:
         $ref: "#/definitions/Private Forecast Time Response_data"
+      errors:
+        type: "array"
+        items: {}
+  Private Forecast Accuracy Response_data:
+    type: "object"
+    required:
+    - "accuracy"
+    properties:
+      accuracy:
+        type: "number"
+  Private Forecast Accuracy Response:
+    type: "object"
+    required:
+    - "code"
+    - "data"
+    - "status"
+    - "success"
+    properties:
+      success:
+        type: "boolean"
+      code:
+        type: "integer"
+      status:
+        type: "string"
+      data:
+        $ref: "#/definitions/Private Forecast Accuracy Response_data"
       errors:
         type: "array"
         items: {}
